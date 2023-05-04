@@ -1,0 +1,29 @@
+/* stylelint-disable docusaurus/copyright-header */
+
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.features {
+  display: flex;
+  align-items: center;
+  /* padding: 2rem 0 0 0; */
+  width: 100%;
+}
+
+.feature {
+  --ifm-spacing-horizontal: 2rem;
+}
+
+.platform {
+  display: flex;
+  align-items: center;
+  padding: 10rem 0 20rem 0;
+  max-width: 100%;
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-image: var(--platform-bg);
+  background-size: 22% auto;
+}
+

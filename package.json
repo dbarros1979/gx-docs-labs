@@ -1,0 +1,79 @@
+{
+  "name": "@genesislcap/docs",
+  "description": "Genesis platform documentation",
+  "version": "0.0.1",
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "build": "docusaurus build",
+    "build:next": "SHOW_NEXT=true docusaurus build",
+    "build:base_url": "BASE_URL=/docs/ docusaurus build",
+    "build:production": "BASE_URL=/docs/ BRANCH=master docusaurus build",
+    "clear": "docusaurus clear",
+    "deploy": "docusaurus deploy",
+    "serve": "docusaurus serve",
+    "start": "docusaurus start --port 8080 --host 0.0.0.0",
+    "start:copy-docs": "cross-env COPY_DOCS=true npm run start",
+    "start:next": "SHOW_NEXT=true docusaurus start --port 8080 --host 0.0.0.0",
+    "swizzle": "docusaurus swizzle",
+    "postinstall": "patch-package --error-on-fail && npm run generate:iife && npm run hack:iife",
+    "generate:iife": "rollup -c -f iife",
+    "hack:iife": "npm run copy:iife && npm run rename:iife && npm run package:iife",
+    "copy:iife": "copyfiles -u 2 src/client-modules/docs.iife.min.js node_modules/iife",
+    "rename:iife": "node -e \"require('fs').rename('node_modules/iife/docs.iife.min.js', 'node_modules/iife/index.js',()=>{})\"",
+    "package:iife": "node -e \"require('fs').writeFileSync('node_modules/iife/package.json', '{\\\"name\\\":\\\"iife\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"main\\\":\\\"index.js\\\"}')\""
+  },
+  "dependencies": {
+    "@cmfcmf/docusaurus-search-local": "^0.11.0",
+    "@docusaurus/core": "^2.2.0",
+    "@docusaurus/plugin-client-redirects": "^2.2.0",
+    "@docusaurus/preset-classic": "^2.2.0",
+    "@docusaurus/theme-live-codeblock": "^2.2.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@genesislcap/documentation-components": "14.9.0",
+    "@genesislcap/foundation-entity-management": "14.9.0",
+    "@genesislcap/foundation-filters": "14.9.0",
+    "@genesislcap/foundation-header": "14.9.0",
+    "@genesislcap/foundation-layout": "14.9.0",
+    "@genesislcap/foundation-login": "14.9.0",
+    "@genesislcap/foundation-reporting": "14.9.0",
+    "@genesislcap/foundation-testing": "14.9.0",
+    "@genesislcap/foundation-zero": "14.9.0",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.6",
+    "classnames": "^2.3.2",
+    "dayjs": "1.10.7",
+    "docusaurus-gtm-plugin": "^0.0.2",
+    "docusaurus-plugin-matomo": "^0.0.6",
+    "fs-extra": "^11.1.0",
+    "mdx-mermaid": "1.3.2",
+    "mermaid": "^9.3.0",
+    "raw-loader": "^4.0.2",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-player": "^2.11.0",
+    "tslib": "^2.4.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.0",
+    "@types/mocha": "^10.0.1",
+    "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "patch-package": "^6.5.1",
+    "rollup": "^2.79.1",
+    "rollup-plugin-visualizer": "^5.9.0"
+  }
+}
