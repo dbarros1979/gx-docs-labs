@@ -8,7 +8,7 @@ dir = os.getcwd()
 
 output_file = os.path.dirname(os.path.realpath(__file__)) + "\output.csv"
 with codecs.open(output_file, "w", encoding="utf-8") as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, quoting=csv.QUOTE_NONE, quotechar=None)
     writer.writerow(['prompt', 'raw_data'])
 
     row = []
@@ -26,12 +26,12 @@ with codecs.open(output_file, "w", encoding="utf-8") as f:
                         for line in lines:
                             if "#" in line:
                                 if len(prompt) > 0:
-                                    row = [prompt.replace(",", ""), raw_data.replace(",", "")]
+                                    row = [f'"{prompt.replace(",", "")}"', f'"{raw_data.replace(",", "")}"']
                                     writer.writerow(row)
                                     raw_data = ""
                                 prompt = line.replace("#", "")
                             elif len(prompt) > 0:
                                 raw_data += line
                         if len(prompt) > 0 and prompt not in row[0]:
-                            row = [prompt.replace(",", ""), raw_data.replace(",", "")]
+                            row = [f'"{prompt.replace(",", "")}"', f'"{raw_data.replace(",", "")}"']
                             writer.writerow(row)
